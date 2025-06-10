@@ -2,6 +2,7 @@
 
 This is a Dockerized web application that counts the number of people in uploaded images using the CSRNet deep learning model. It stores the results in a database and allows exporting to a preformatted Excel template.
 
+Just a warning this project is Uber Alpha. mostly vibe coded I am currently working on cleaning up all of the bugs
 ---
 
 ## 📦 Features
