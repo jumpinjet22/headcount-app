@@ -1,94 +1,62 @@
-# 🧠 CSRNet Headcount Web App
+# 🚨 Help Wanted: CSRNet Headcount Web App (Uber Alpha 🚧)
 
-This is a Dockerized web application that counts the number of people in uploaded images using the CSRNet deep learning model. It stores the results in a database and allows exporting to a preformatted Excel template.
+Hey folks!
 
----
+I work at a church, and for some reason, my pastors want to use machine vision to count the number of service attendees. So, I’m currently working on a Dockerized headcount web app powered by CSRNet (the crowd-counting deep learning model). The idea is to upload an image, run it through CSRNet, store the results in a DB, and then export everything into a preformatted Excel template.
 
-## 📦 Features
+The project is currently in **Uber Alpha** — meaning it’s about 80% vibe-coded and 20% duct tape. 😅 I’m actively cleaning up bugs, tightening up the logic, and improving structure.
 
-* Upload images to detect and count people using CSRNet (PyTorch)
-* Store results (image name, timestamp, count) in a database
-* Export headcounts into a custom Excel sheet
-* Fully Dockerized with FastAPI backend
+* * *
 
----
+### 🔍 What I’m Looking For
 
-## 🛠️ Setup Instructions
+- **Feedback** on architecture (FastAPI + Docker + PyTorch)
+- **Help debugging** any known issues or inefficiencies
+- **Suggestions** for cleaning up the flow or improving the UI/API
+- **Ideas** for features you'd like to see added
+- **Any contributions** at all, honestly. PRs, issues, vibes... it's all welcome
 
-### 1. Clone the repo
+* * *
 
-```bash
-git clone https://your-repo-url.git
-cd headcount-app
-```
+### 💡 Quick Overview
 
-### 2. Download Pretrained CSRNet Weights
+- Upload an image → CSRNet estimates headcount
+- Store results (filename, timestamp, people count)
+- Export all that into a preformatted Excel `.xlsx` file
+- Access everything through Swagger UI (`/docs`)
+- Fully Dockerized
 
-Download weights trained on [ShanghaiTech Part A](https://github.com/leeyeehoo/CSRNet-pytorch):
+* * *
 
-```bash
-mkdir -p app/model/weights
-wget -O app/model/weights/csrnet.pth.tar https://github.com/leeyeehoo/CSRNet-pytorch/releases/download/v1.0/partAmodel_best.pth.tar
-```
+### 🧪 Try It Out
 
-> You can also manually download and place the file in `app/model/weights`.
+Clone the repo, download the pretrained weights from the [CSRNet repo](https://github.com/leeyeehoo/CSRNet-pytorch), and run:
 
----
+    docker build -t headcount-app .docker run -p 8000:8000 -v %cd%:/app headcount-app # Use $(pwd) on Mac/Linux
 
-## 🚀 Running the App
+Then go to:  
+[**http://localhost:8000/docs**](http://localhost:8000/docs)
 
-### With Docker:
+* * *
 
-```bash
-docker build -t headcount-app .
-docker run -p 8000:8000 -v %cd%:/app headcount-app
-```
+### 🧠 Tech Stack
 
-> On Linux/macOS use `$(pwd)` instead of `%cd%`.
+- **FastAPI** backend
+- **CSRNet** model (PyTorch)
+- **SQLite** for now (pluggable DB later?)
+- **openpyxl** for Excel export
 
-The app will be available at:
-`http://localhost:8000/docs` ← Swagger UI for testing
+* * *
 
----
+### 🗂 Folder Layout
 
-## 📄 Uploading Images
+    headcount-app/├── app/│ ├── main.py│ ├── model/│ ├── routes/│ ├── db/│ └── export/├── template/├── Dockerfile├── requirements.txt├── .env└── README.md
 
-Send a `POST` request to `/upload` with an image file.
-Returns JSON with the estimated count.
+* * *
 
-Example using `curl`:
+### 🙏 Final Word
 
-```bash
-curl -F "file=@people.jpg" http://localhost:8000/upload
-```
+If you’re into computer vision, web dev, or just like the idea of having machines count heads so you don’t have to — I’d *love* your feedback or help.
 
----
-
-## 📊 Export to Excel
-
-Send a `GET` request to `/export_excel` to download an `.xlsx` file populated with headcount data based on your template in `template/Template.xlsx`.
-
----
-
-## 📂 Folder Structure
-
-```
-headcount-app/
-├── app/
-│   ├── main.py
-│   ├── model/
-│   ├── routes/
-│   ├── db/
-│   └── export/
-├── template/
-├── Dockerfile
-├── requirements.txt
-├── .env
-└── README.md
-```
-
----
-
-## 📋 License
-
-This project uses the CSRNet architecture for academic and non-commercial use. Original model: [CSRNet](https://github.com/leeyeehoo/CSRNet-pytorch)
+**Thanks in advance for your time and any help you can offer.**  
+**–  jumpinjet22**
